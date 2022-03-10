@@ -1782,62 +1782,86 @@ function renderRecipes() {
   for (let i = 0; i < recipes.length; i++) {
     //creates recipe card
     const recipeCard = document.createElement("article");
-    recipeCard.classList.add("recipe-card", "container");
+    recipeCard.classList.add(
+      "recipe-card",
+      "col",
+      "col-sm-6",
+      "col-md-4",
+      "col-lg-3"
+    );
 
+    const recipeInner = document.createElement("div");
+    recipeInner.classList.add("inner");
 
     //recipe header contains title and prep time
     const recipeHeader = document.createElement("div");
-    recipeHeader.classList.add("recipe-title", "row");
+    recipeHeader.classList.add("recipe-heading", "row");
 
     const recipeTitle = document.createElement("p");
     recipeTitle.innerHTML = recipes[i].name;
-    recipeTitle.classList.add("col");
+    recipeTitle.classList.add("recipe-name", "col-8");
 
     const recipeTime = document.createElement("p");
     recipeTime.innerHTML = recipes[i].time + "icon";
-    recipeTime.classList.add("col");
+    recipeTime.classList.add("recipe-time", "col-4");
 
     //recipe info contains ingredients and instructions
     const recipeInfo = document.createElement("div");
     recipeInfo.classList.add("recipe-info", "row");
 
     const recipeIngredients = document.createElement("div");
-    recipeIngredients.classList.add("col");
+    recipeIngredients.classList.add("ingredients-container", "col-6");
 
     //create ingredient List
     recipes[i].ingredients.forEach(function (ingredients) {
-
       const ingredient = document.createElement("p");
-      ingredient.classList.add("row");
-      let text = ingredients.ingredient + ": ";
+      ingredient.classList.add("ingredient");
+      let text = ingredients.ingredient;
       //checks if ingedient has quanitiy or units defined and displays accordingly
-        if (ingredients.quantity !== undefined) {
-            text += ingredients.quantity;
-        }
-        if (ingredients.unit !== undefined) {
-            text += " " +ingredients.unit;
-        }
-       ingredient.innerHTML = text;
+      if (ingredients.quantity !== undefined) {
+        text += ": " + ingredients.quantity;
+      }
+      if (ingredients.unit !== undefined) {
+        text += " " + ingredients.unit;
+      }
+      ingredient.innerHTML = text;
 
       recipeInfo.appendChild(recipeIngredients);
       recipeIngredients.appendChild(ingredient);
     });
 
     const recipeInstruction = document.createElement("p");
-    recipeInstruction.classList.add("col", "recipe-description");
-    recipeInstruction.innerHTML = recipes[i].description;
-
-    //appends recipe card to container
-    recipeContainer.appendChild(recipeCard);
-    //appends heading and info to recipe card
-    recipeCard.appendChild(recipeHeader);
-    recipeCard.appendChild(recipeInfo);
-
-    //appends instructions to recipe info
-    recipeInfo.appendChild(recipeInstruction);
+    recipeInstruction.classList.add("recipe-description", "col-6");
+    recipeInstruction.innerHTML = truncate(recipes[i].description, 100);
 
     //appends title and prep time to heading
     recipeHeader.appendChild(recipeTitle);
     recipeHeader.appendChild(recipeTime);
+
+    //appends instructions to recipe info
+    recipeInfo.appendChild(recipeInstruction);
+
+    //appends heading and info to recipe card
+    recipeInner.appendChild(recipeHeader);
+    recipeInner.appendChild(recipeInfo);
+
+    //appends recipe card to container
+    recipeCard.appendChild(recipeInner);
+    recipeContainer.appendChild(recipeCard);
   }
+}
+
+/** 
+ * Generate excerpt from description by limit of characters
+ * 
+ * @param {string} text - That needs to be truncated
+ * @param {number} limit - Number of max. characters to truncate on
+ * @returns New truncated string Typescript -> Angular
+ */
+function truncate(text, limit) {
+  let str = text;
+  if (str.length > limit) {
+    str = str.substring(0, limit) + "...";
+  }
+  return str;
 }
