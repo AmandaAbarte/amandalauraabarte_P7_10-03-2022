@@ -1784,33 +1784,35 @@ function renderRecipes() {
     const recipeCard = document.createElement("article");
     recipeCard.classList.add(
       "recipe-card",
-      "col",
+      "col-xs-12",
       "col-sm-6",
-      "col-md-4",
-      "col-lg-3"
+      "col-md-4"
     );
 
     const recipeInner = document.createElement("div");
-    recipeInner.classList.add("inner");
+    recipeInner.classList.add("inner", "card-body");
 
     //recipe header contains title and prep time
     const recipeHeader = document.createElement("div");
     recipeHeader.classList.add("recipe-heading", "row");
 
-    const recipeTitle = document.createElement("p");
+    const recipeTitle = document.createElement("h2");
     recipeTitle.innerHTML = recipes[i].name;
-    recipeTitle.classList.add("recipe-name", "col-8");
+    recipeTitle.classList.add("recipe-name", "col-8", "font-weight-bold");
 
+    const recipeTimeIcon = document.createElement("img");
+    recipeTimeIcon.setAttribute("src", "/assets/clock.png");
+    recipeTimeIcon.classList.add("ms-2")
     const recipeTime = document.createElement("p");
-    recipeTime.innerHTML = recipes[i].time + "icon";
-    recipeTime.classList.add("recipe-time", "col-4");
+    recipeTime.innerHTML = recipes[i].time + "min   ";
+    recipeTime.classList.add("recipe-time", "col-4", "d-flex", "justify-content-end", "font-weight-bold");
 
     //recipe info contains ingredients and instructions
     const recipeInfo = document.createElement("div");
     recipeInfo.classList.add("recipe-info", "row");
 
     const recipeIngredients = document.createElement("div");
-    recipeIngredients.classList.add("ingredients-container", "col-6");
+    recipeIngredients.classList.add("ingredients-container", "col-6","font-weight-bold");
 
     //create ingredient List
     recipes[i].ingredients.forEach(function (ingredients) {
@@ -1837,6 +1839,7 @@ function renderRecipes() {
     //appends title and prep time to heading
     recipeHeader.appendChild(recipeTitle);
     recipeHeader.appendChild(recipeTime);
+    recipeTime.appendChild(recipeTimeIcon);
 
     //appends instructions to recipe info
     recipeInfo.appendChild(recipeInstruction);

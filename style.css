@@ -1,13 +1,53 @@
-.recipes-container .recipe-card {
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+html {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 100%;
+}
+
+html header img {
+  width: 50px;
+}
+
+html header h3 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 47px;
+  color: #d04f4f;
+}
+
+html .recipes-container .recipe-card {
   margin-bottom: 1rem;
   font-size: 12px;
 }
 
-.recipes-container .recipe-card .inner {
+html .recipes-container .recipe-card .inner {
   background: #e7e7e7;
+  height: 178px;
 }
 
-.recipes-container .recipe-card .inner .ingredients-container .ingredient {
+html .recipes-container .recipe-card .inner .recipe-heading .recipe-name {
+  font-family: Lato;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+html .recipes-container .recipe-card .inner .recipe-heading .recipe-time img {
+  width: 20px;
+  height: 20px;
+}
+
+html .recipes-container .recipe-card .inner .ingredients-container .ingredient {
   margin-bottom: 3px;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
 }
 /*# sourceMappingURL=style.css.map */
