@@ -393,7 +393,7 @@ const recipes = [
         unit: "slices",
       },
       {
-        ingredient: "Apples",
+        ingredient: "Apple",
         quantity: 1,
       },
       {
@@ -423,7 +423,7 @@ const recipes = [
         unit: "grams",
       },
       {
-        ingredient: "Apples",
+        ingredient: "Apple",
         quantity: 8,
       },
       {
@@ -1708,7 +1708,7 @@ const recipes = [
     servings: 4,
     ingredients: [
       {
-        ingredient: "Bananas",
+        ingredient: "Banana",
         quantity: 2,
       },
       {
@@ -1773,9 +1773,84 @@ const recipes = [
   },
 ];
 
-const recipeContainer = document.querySelector(".recipes-container");
 
-renderRecipes();
+
+const ingredientsDropdown = document.querySelector(".ingredient-dropdown");
+const deviceDropdown = document.querySelector(".device-dropdown");
+const utensilsDropdown = document.querySelector(".utensils-dropdown");
+
+const filterContainer = document.querySelector(".filter");
+
+//create empty arrays for dropdown options
+
+let ingredientArray = [];
+
+let devicesArray = [];
+
+let utensilsArray = [];
+
+for (let x = 0; x < recipes.length; x++) {
+  
+  //for each recipe ingredient list push only ingredients and lowercase them so that they are not counted as double (same for utensils and appliances)
+  recipes[x].ingredients.forEach(function (ingredients) {
+    ingredientArray.push(ingredients.ingredient.toLowerCase());
+  });
+
+  recipes[x].ustensils.forEach(function (ustensils) {
+    utensilsArray.push(ustensils.toLowerCase());
+  });
+  devicesArray.push(recipes[x].appliance.toLowerCase());
+
+}
+
+//call uniq funtion so there is no repetition
+ingredientArray = uniq(ingredientArray);
+devicesArray = uniq(devicesArray);
+utensilsArray = uniq(utensilsArray);
+
+console.log(ingredientArray, devicesArray, utensilsArray);
+
+
+//funtion to check for repetition in arrays
+function uniq(a) {
+  return a.sort().filter(function(item, pos, ary) {
+    return !pos || item != ary[pos - 1];
+  });
+}
+
+
+function generateList(list, type, dropdown) {
+  list.forEach(element => {
+    
+    const item = document.createElement("li");
+    item.classList.add(type, "dropdown-item");
+    item.innerHTML = element;
+    
+    dropdown.appendChild(item);
+
+    item.addEventListener("click", function() {
+      item.classList.toggle("active");
+  
+        
+        if (item.classList.contains("active")) {
+          const showFilter = document.createElement("p");
+          showFilter.classList.add("show-filter")
+          const close = document.createElement("img");
+          close.setAttribute("src", "/assets/close.png");
+          showFilter.innerHTML = item.innerHTML;
+          showFilter.appendChild(close);
+          filterContainer.appendChild(showFilter);
+        }
+      });
+
+  });
+}
+
+generateList(ingredientArray, "ingredient", ingredientsDropdown);
+generateList(devicesArray, "ingredient", deviceDropdown);
+generateList(utensilsArray, "ingredient", utensilsDropdown);
+
+const recipeContainer = document.querySelector(".recipes-container");
 
 function renderRecipes() {
   //create recipe cards and fill with info from recipes array
@@ -1853,6 +1928,8 @@ function renderRecipes() {
     recipeContainer.appendChild(recipeCard);
   }
 }
+renderRecipes();
+
 
 /** 
  * Generate excerpt from description by limit of characters

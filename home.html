@@ -25,20 +25,45 @@
             <img src="assets/logo.png" alt="Les Petits Plats Logo" class="mx-auto d-block">
             <h3 class="text-center"> Les petits plats</h3>
 
-            <div>
-                <div class="search">
-                    <input type="text" class="search-input col-11" placeholder="Search..." name="">
-                    <a href="#" class="search-icon"> <i class="fa fa-search"></i> 
-                    </a>
-                </div>
+
+            <div class="search">
+                <input type="text" class="search-input col-11" placeholder="Search..." name="">
+                <a href="#" class="search-icon"> <i class="fa fa-search"></i>
+                </a>
             </div>
 
-            <div class="filter my-2">
-                <button class="btn btn-primary mr-1">Ingedients</button>
-                <button class="btn btn-success mr-1">Device</button>
-                <button class="btn btn-danger mr-1">Utensils</button>
+            <div class="filter my-2 mx-auto d-flex flex-wrap">
+                <div class="dropdown me-3 mt-3">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Ingredients
+                    </button>
+                    <ul class="dropdown-menu ingredient-dropdown" aria-labelledby="dropdownMenuButton1">
+
+                    </ul>
+                </div>
+                <div class="dropdown me-3 mt-3">
+                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Device
+                    </button>
+                    <ul class="dropdown-menu device-dropdown" aria-labelledby="dropdownMenuButton1">
+
+                    </ul>
+                </div>
+                <div class="dropdown me-3 mt-3">
+                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Utensils
+                    </button>
+                    <ul class="dropdown-menu utensils-dropdown" aria-labelledby="dropdownMenuButton1">
+
+                    </ul>
+                </div>
             </div>
+            
         </div>
+
     </header>
 
     <main>
@@ -49,6 +74,9 @@
         </div>
     </main>
     <script src="recipes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

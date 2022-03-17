@@ -19,6 +19,32 @@ html header h3 {
   color: #d04f4f;
 }
 
+html header .filter .dropdown button {
+  height: 70px;
+  font-family: Lato;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+html header .filter .show-filter {
+  background-color: #d04f4f;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+html header .filter .show-filter img {
+  width: 20px;
+}
+
 html .recipes-container .recipe-card {
   margin-bottom: 1rem;
   font-size: 12px;

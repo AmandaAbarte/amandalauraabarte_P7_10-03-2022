@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
 html {
   font-family: Roboto;
@@ -7,9 +7,9 @@ html {
   font-size: 12px;
   line-height: 100%;
   header {
-      img {
-          width: 50px;
-      }
+    img {
+      width: 50px;
+    }
     h3 {
       font-style: normal;
       font-weight: bold;
@@ -17,7 +17,36 @@ html {
       line-height: 47px;
       color: #d04f4f;
     }
+    .filter {
+      .dropdown {
+        button {
+          height: 70px;
+          font-family: Lato;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 22px;
+          letter-spacing: 0em;
+          text-align: left;
+        }
+      }
+      .show-filter {
+        background-color: #d04f4f;
+        font-family: Lato;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 17px;
+        letter-spacing: 0em;
+        text-align: left;
+
+        img {
+          width: 20px;
+        }
+      }
+    }
   }
+
   .recipes-container {
     .recipe-card {
       margin-bottom: 1rem;
