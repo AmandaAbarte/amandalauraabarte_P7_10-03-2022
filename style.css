@@ -76,4 +76,8 @@ html .recipes-container .recipe-card .inner .ingredients-container .ingredient {
   font-size: 12px;
   line-height: 14px;
 }
+
+.hide {
+  display: none;
+}
 /*# sourceMappingURL=style.css.map */
