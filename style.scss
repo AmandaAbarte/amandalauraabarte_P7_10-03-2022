@@ -1,84 +1,102 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
-html {
+* {
   font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 100%;
-  header {
-    img {
-      width: 50px;
-    }
-    h3 {
-      font-style: normal;
-      font-weight: bold;
-      font-size: 36px;
-      line-height: 47px;
-      color: #d04f4f;
-    }
-    .filter {
-      .dropdown {
-        button {
-          height: 70px;
-          font-family: Lato;
-          font-size: 18px;
-          font-style: normal;
-          font-weight: 700;
-          line-height: 22px;
-          letter-spacing: 0em;
-          text-align: left;
-        }
-      }
-      .show-filter {
-        background-color: #d04f4f;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  img {
+    width: 50px;
+  }
+
+  h3 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 47px;
+    color: #d04f4f;
+  }
+
+  .filter {
+    .dropdown {
+      button {
+        height: 70px;
         font-family: Lato;
-        font-size: 14px;
+        font-size: 18px;
         font-style: normal;
         font-weight: 700;
-        line-height: 17px;
+        line-height: 22px;
         letter-spacing: 0em;
         text-align: left;
+      }
 
-        img {
-          width: 20px;
+      .dropdown-menu {
+        width: 670px;
+        padding: 0;
+
+        &.show {
+          display: flex;
+          flex-wrap: wrap;
         }
+
+        .dropdown-item {
+          width: calc(100%/3);
+          text-transform: capitalize;
+        }
+      }
+    }
+
+    .show-filter {
+      background-color: #d04f4f;
+      font-family: Lato;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 17px;
+      letter-spacing: 0em;
+      text-align: left;
+
+      img {
+        width: 20px;
       }
     }
   }
+}
 
-  .recipes-container {
-    .recipe-card {
-      margin-bottom: 1rem;
-      font-size: 12px;
+.recipes-container {
+  .recipe-card {
+    margin-bottom: 1rem;
+    font-size: 12px;
 
-      .inner {
-        background: #e7e7e7;
-        height: 178px;
-        .recipe-heading {
-          .recipe-name {
-            font-family: Lato;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 18px;
-            line-height: 22px;
-          }
-          .recipe-time {
-            img {
-              width: 20px;
-              height: 20px;
-            }
+    .inner {
+      background: #e7e7e7;
+      height: 178px;
+      .recipe-heading {
+        .recipe-name {
+          font-family: Lato;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 22px;
+        }
+        .recipe-time {
+          img {
+            width: 20px;
+            height: 20px;
           }
         }
-        .ingredients-container {
-          .ingredient {
-            margin-bottom: 3px;
-            font-family: Lato;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 12px;
-            line-height: 14px;
-          }
+      }
+      .ingredients-container {
+        .ingredient {
+          margin-bottom: 3px;
+          font-family: Lato;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 12px;
+          line-height: 14px;
         }
       }
     }
@@ -88,3 +106,4 @@ html {
 .hide {
   display: none;
 }
+

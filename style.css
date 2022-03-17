@@ -1,17 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
-html {
+* {
   font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
 }
 
-html header img {
+header img {
   width: 50px;
 }
 
-html header h3 {
+header h3 {
   font-style: normal;
   font-weight: bold;
   font-size: 36px;
@@ -19,7 +18,7 @@ html header h3 {
   color: #d04f4f;
 }
 
-html header .filter .dropdown button {
+header .filter .dropdown button {
   height: 70px;
   font-family: Lato;
   font-size: 18px;
@@ -30,7 +29,25 @@ html header .filter .dropdown button {
   text-align: left;
 }
 
-html header .filter .show-filter {
+header .filter .dropdown .dropdown-menu {
+  width: 670px;
+  padding: 0;
+}
+
+header .filter .dropdown .dropdown-menu.show {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+header .filter .dropdown .dropdown-menu .dropdown-item {
+  width: calc(100%/3);
+  text-transform: capitalize;
+}
+
+header .filter .show-filter {
   background-color: #d04f4f;
   font-family: Lato;
   font-size: 14px;
@@ -41,21 +58,21 @@ html header .filter .show-filter {
   text-align: left;
 }
 
-html header .filter .show-filter img {
+header .filter .show-filter img {
   width: 20px;
 }
 
-html .recipes-container .recipe-card {
+.recipes-container .recipe-card {
   margin-bottom: 1rem;
   font-size: 12px;
 }
 
-html .recipes-container .recipe-card .inner {
+.recipes-container .recipe-card .inner {
   background: #e7e7e7;
   height: 178px;
 }
 
-html .recipes-container .recipe-card .inner .recipe-heading .recipe-name {
+.recipes-container .recipe-card .inner .recipe-heading .recipe-name {
   font-family: Lato;
   font-style: normal;
   font-weight: normal;
@@ -63,12 +80,12 @@ html .recipes-container .recipe-card .inner .recipe-heading .recipe-name {
   line-height: 22px;
 }
 
-html .recipes-container .recipe-card .inner .recipe-heading .recipe-time img {
+.recipes-container .recipe-card .inner .recipe-heading .recipe-time img {
   width: 20px;
   height: 20px;
 }
 
-html .recipes-container .recipe-card .inner .ingredients-container .ingredient {
+.recipes-container .recipe-card .inner .ingredients-container .ingredient {
   margin-bottom: 3px;
   font-family: Lato;
   font-style: normal;

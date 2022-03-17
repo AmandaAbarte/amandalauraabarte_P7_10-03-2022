@@ -1773,7 +1773,6 @@ const recipes = [
   },
 ];
 
-
 const filterContainer = document.querySelector(".filter");
 const searchInput = document.querySelector("[data-search]");
 let allRecipes = [];
@@ -1782,7 +1781,7 @@ let allRecipes = [];
 searchInput.addEventListener("input", function (e) {
   const value = e.target.value.toLowerCase();
 
-  allRecipes.forEach(recipe => {
+  allRecipes.forEach((recipe) => {
     const isVisible =
       recipe.name.toLowerCase().includes(value) ||
       recipe.description.toLowerCase().includes(value);
@@ -1826,34 +1825,64 @@ const ingredientsDropdown = document.querySelector(".ingredient-dropdown");
 const deviceDropdown = document.querySelector(".device-dropdown");
 const utensilsDropdown = document.querySelector(".utensils-dropdown");
 
+// Criteria Filters
+let ingredientsFilter = [];
+let deviceFilter = [];
+let utensilsFilter = [];
+
 //generates list of items for each filter dropdown
-function generateList(list, type, dropdown) {
-  list.forEach((element) => {
+function generateList(list, type, dropdown, array) {
+  list.forEach((criteria) => {
+    // This is for the dropdown item
     const item = document.createElement("li");
     item.classList.add(type, "dropdown-item");
-    item.innerHTML = element;
-
+    item.innerHTML = criteria;
     dropdown.appendChild(item);
 
+    // This is for the filter criteria to be created upon choosing a specific dropdown-item
     item.addEventListener("click", function () {
       item.classList.toggle("show");
 
-      if (item.classList.contains("show")) {
+      /**
+       * If it was NOT added, do the following:
+       * 1. Disable that dropdown-item to prevent user from re-click it
+       * 2. Create a filter criteria tag
+       */
+      if (!array.includes(criteria)) {
+        // Create a filter criteria tag
         const showFilter = document.createElement("p");
         showFilter.classList.add("show-filter");
         const close = document.createElement("img");
         close.setAttribute("src", "/assets/close.png");
-        showFilter.innerHTML = item.innerHTML;
+        showFilter.innerHTML = criteria;
         showFilter.appendChild(close);
         filterContainer.appendChild(showFilter);
+  
+        // Add it to Ingredients Filter Array as a filter criteria
+        array.push(criteria);
+  
+        // On clicking the "x", remove the element from DOM + from thearray array
+        close.addEventListener("click", function () {
+          filterContainer.removeChild(showFilter);
+          const index = array.indexOf(criteria);
+          array.splice(index, 1);
+          
+          //enable drop-down item
+          item.classList.remove("disabled");
+        });
+
+        // Disable the clicked dropdown-item
+        item.classList.add("disabled");
+
+        console.log(`Type: ${type}`, array)
       }
     });
   });
 }
 
-generateList(ingredientArray, "ingredient", ingredientsDropdown);
-generateList(devicesArray, "device", deviceDropdown);
-generateList(utensilsArray, "utensil", utensilsDropdown);
+generateList(ingredientArray, "ingredient", ingredientsDropdown, ingredientsFilter);
+generateList(devicesArray, "device", deviceDropdown, deviceFilter);
+generateList(utensilsArray, "utensil", utensilsDropdown, utensilsFilter);
 
 const recipeContainer = document.querySelector(".recipes-container");
 //create recipe cards and fill with info from recipes array
@@ -1956,4 +1985,12 @@ function truncate(text, limit) {
     str = str.substring(0, limit) + "...";
   }
   return str;
+}
+
+function filter() {
+  // 1. Get all 3 arrays criteria
+}
+
+function update() {
+
 }
