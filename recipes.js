@@ -1774,6 +1774,8 @@ const recipes = [
 ];
 
 const filterContainer = document.querySelector(".filter");
+const filterTagsContainer = document.querySelector(".filter-tag");
+
 const searchInput = document.querySelector("[data-search]");
 let allRecipes = [];
 
@@ -1835,7 +1837,7 @@ function generateList(list, type, dropdown, array) {
   list.forEach((criteria) => {
     // This is for the dropdown item
     const item = document.createElement("li");
-    item.classList.add(type, "dropdown-item");
+    item.classList.add(type, "dropdown-item", "text-light");
     item.innerHTML = criteria;
     dropdown.appendChild(item);
 
@@ -1851,19 +1853,19 @@ function generateList(list, type, dropdown, array) {
       if (!array.includes(criteria)) {
         // Create a filter criteria tag
         const showFilter = document.createElement("p");
-        showFilter.classList.add("show-filter");
+        showFilter.classList.add("badge", "me-2", "mt-1", "show-filter", type);
         const close = document.createElement("img");
         close.setAttribute("src", "/assets/close.png");
         showFilter.innerHTML = criteria;
         showFilter.appendChild(close);
-        filterContainer.appendChild(showFilter);
+        filterTagsContainer.appendChild(showFilter);
   
         // Add it to Ingredients Filter Array as a filter criteria
         array.push(criteria);
   
         // On clicking the "x", remove the element from DOM + from thearray array
         close.addEventListener("click", function () {
-          filterContainer.removeChild(showFilter);
+          filterTagsContainer.removeChild(showFilter);
           const index = array.indexOf(criteria);
           array.splice(index, 1);
           

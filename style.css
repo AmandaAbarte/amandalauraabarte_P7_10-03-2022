@@ -18,7 +18,27 @@ header h3 {
   color: #d04f4f;
 }
 
+header .filter {
+  height: 100%;
+}
+
+header .filter .dropdown.dd-ingredient,
+header .filter .dropdown .dd-ingredient {
+  background-color: #3282f7;
+}
+
+header .filter .dropdown.dd-device,
+header .filter .dropdown .dd-device {
+  background-color: #ed6454;
+}
+
+header .filter .dropdown.dd-utensil,
+header .filter .dropdown .dd-utensil {
+  background-color: #68d9a4;
+}
+
 header .filter .dropdown button {
+  color: white;
   height: 70px;
   font-family: Lato;
   font-size: 18px;
@@ -43,12 +63,18 @@ header .filter .dropdown .dropdown-menu.show {
 }
 
 header .filter .dropdown .dropdown-menu .dropdown-item {
-  width: calc(100%/3);
+  width: calc(100% / 3);
   text-transform: capitalize;
+  font-family: Lato;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
 }
 
 header .filter .show-filter {
-  background-color: #d04f4f;
   font-family: Lato;
   font-size: 14px;
   font-style: normal;
@@ -56,10 +82,24 @@ header .filter .show-filter {
   line-height: 17px;
   letter-spacing: 0em;
   text-align: left;
+  margin-bottom: 0;
+}
+
+header .filter .show-filter.ingredient {
+  background-color: #3282f7;
+}
+
+header .filter .show-filter.utensil {
+  background-color: #68d9a4;
+}
+
+header .filter .show-filter.device {
+  background-color: #ed6454;
 }
 
 header .filter .show-filter img {
   width: 20px;
+  margin-left: 5px;
 }
 
 .recipes-container .recipe-card {
@@ -69,7 +109,7 @@ header .filter .show-filter img {
 
 .recipes-container .recipe-card .inner {
   background: #e7e7e7;
-  height: 178px;
+  min-height: 178px;
 }
 
 .recipes-container .recipe-card .inner .recipe-heading .recipe-name {
@@ -78,6 +118,16 @@ header .filter .show-filter img {
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;
+}
+
+.recipes-container .recipe-card .inner .recipe-heading .recipe-time {
+  font-family: Lato;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
 }
 
 .recipes-container .recipe-card .inner .recipe-heading .recipe-time img {
