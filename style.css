@@ -18,6 +18,10 @@ header h3 {
   color: #d04f4f;
 }
 
+header .search i {
+  font-size: 32px;
+}
+
 header .filter {
   height: 100%;
 }
