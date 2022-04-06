@@ -78,6 +78,10 @@ header .filter .dropdown .dropdown-menu .dropdown-item {
   text-align: left;
 }
 
+header .filter .dropdown .dropdown-menu .dropdown-item.disabled {
+  opacity: 0.4;
+}
+
 header .filter .show-filter {
   font-family: Lato;
   font-size: 14px;
