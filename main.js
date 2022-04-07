@@ -1983,6 +1983,7 @@ function generateList(list, type, dropdown, array) {
       }
       
       // Filter & Re-render the recipe cards
+      filteredRecipes.length = 0;
       filterAll();
       createRecipeCards();
       console.log(filteredRecipes);
