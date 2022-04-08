@@ -2027,7 +2027,17 @@ function filterByDevice() {
   });
 }
 function filterByUtensil() {
+  utensilsFilter.map((filter) => {
 
+    recipes.map((recipe) => {
+      recipe.ustensils.map((utensil) => {
+
+        if (utensil == filter) {
+          filteredRecipes.push(recipe);
+        }
+      });
+    });
+  });
 }
 
 // Listens for input, check title or description contains input and hides everything not including input
