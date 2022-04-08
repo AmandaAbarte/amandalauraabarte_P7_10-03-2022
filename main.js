@@ -1778,6 +1778,7 @@ const filterContainer = document.querySelector(".filter");
 const filterTagsContainer = document.querySelector(".filter-tag");
 
 let allRecipes = [];
+let filteredRecipes = [];
 
 const getValue = (value) =>
   typeof value === "string" ? value.toUpperCase() : value;
@@ -1787,20 +1788,20 @@ function init() {
   createRecipeCards();
   createFilterDropdowns();
 }
-let filteredRecipes = [];
+
+
 // Create recipe cards and fill with info from recipes array
 const recipeContainer = document.querySelector(".recipes-container");
 function createRecipeCards() {
   //clears exisitng recipes to rerender cards
   recipeContainer.innerHTML = "";
 
-
   if (filteredRecipes.length == 0) {
     // let newRecipesList = recipes;
     generateRecipes(recipes);
   } else {
     // let newRecipesList = filteredRecipes;
-    generateRecipes(filteredRecipes);
+    generateRecipes(uniq(filteredRecipes));
   }
 
   function generateRecipes(newRecipesList) {
@@ -1814,18 +1815,18 @@ function createRecipeCards() {
         "col-sm-6",
         "col-md-4"
       );
-  
+
       const recipeInner = document.createElement("div");
       recipeInner.classList.add("inner", "card-body");
-  
+
       //recipe header contains title and prep time
       const recipeHeader = document.createElement("div");
       recipeHeader.classList.add("recipe-heading", "row");
-  
+
       const recipeTitle = document.createElement("h2");
       recipeTitle.innerHTML = recipe.name;
       recipeTitle.classList.add("recipe-name", "col-8", "font-weight-bold");
-  
+
       const recipeTimeIcon = document.createElement("img");
       recipeTimeIcon.setAttribute("src", "/assets/clock.png");
       recipeTimeIcon.classList.add("ms-2");
@@ -1838,18 +1839,18 @@ function createRecipeCards() {
         "justify-content-end",
         "font-weight-bold"
       );
-  
+
       //recipe info contains ingredients and instructions
       const recipeInfo = document.createElement("div");
       recipeInfo.classList.add("recipe-info", "row");
-  
+
       const recipeIngredients = document.createElement("div");
       recipeIngredients.classList.add(
         "ingredients-container",
         "col-6",
         "font-weight-bold"
       );
-  
+
       //create ingredient List
       recipe.ingredients.forEach(function (ingredients) {
         const ingredient = document.createElement("p");
@@ -1863,31 +1864,31 @@ function createRecipeCards() {
           text += " " + ingredients.unit;
         }
         ingredient.innerHTML = text;
-  
+
         recipeInfo.appendChild(recipeIngredients);
         recipeIngredients.appendChild(ingredient);
       });
-  
+
       const recipeInstruction = document.createElement("p");
       recipeInstruction.classList.add("recipe-description", "col-6");
       recipeInstruction.innerHTML = truncate(recipe.description, 100);
-  
+
       //appends title and prep time to heading
       recipeHeader.appendChild(recipeTitle);
       recipeHeader.appendChild(recipeTime);
       recipeTime.appendChild(recipeTimeIcon);
-  
+
       //appends instructions to recipe info
       recipeInfo.appendChild(recipeInstruction);
-  
+
       //appends heading and info to recipe card
       recipeInner.appendChild(recipeHeader);
       recipeInner.appendChild(recipeInfo);
-  
+
       //appends recipe card to container
       recipeCard.appendChild(recipeInner);
       recipeContainer.appendChild(recipeCard);
-  
+
       return {
         name: recipe.name,
         description: recipe.description,
@@ -1896,7 +1897,6 @@ function createRecipeCards() {
         appliance: recipe.appliance,
       };
     });
-
   }
 }
 
@@ -1985,6 +1985,10 @@ function generateList(list, type, dropdown, array) {
           array.splice(index, 1);
           //enable drop-down item
           item.classList.remove("disabled");
+
+          console.log(`Type: ${type}`, array);
+
+          console.log(filteredRecipes);
         });
 
         // Disable the clicked dropdown-item
@@ -2024,6 +2028,7 @@ function filterByIngredient() {
     });
   });
 }
+
 function filterByDevice() {
   // Loop over each filter inside the array (NOTE: Not the best performance solution - There are better algorithms)
   deviceFilter.map((filter) => {
