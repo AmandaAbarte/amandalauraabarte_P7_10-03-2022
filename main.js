@@ -1787,108 +1787,119 @@ function init() {
   createRecipeCards();
   createFilterDropdowns();
 }
-
+let filteredRecipes = [];
 // Create recipe cards and fill with info from recipes array
 const recipeContainer = document.querySelector(".recipes-container");
-function createRecipeCards(newRecipesList = recipes) {
+function createRecipeCards() {
   //clears exisitng recipes to rerender cards
   recipeContainer.innerHTML = "";
 
-  //renders recipe cards
-  allRecipes = newRecipesList.map((recipe) => {
-    //creates recipe card
-    const recipeCard = document.createElement("article");
-    recipeCard.classList.add(
-      "recipe-card",
-      "col-xs-12",
-      "col-sm-6",
-      "col-md-4"
-    );
 
-    const recipeInner = document.createElement("div");
-    recipeInner.classList.add("inner", "card-body");
+  if (filteredRecipes.length == 0) {
+    // let newRecipesList = recipes;
+    generateRecipes(recipes);
+  } else {
+    // let newRecipesList = filteredRecipes;
+    generateRecipes(filteredRecipes);
+  }
 
-    //recipe header contains title and prep time
-    const recipeHeader = document.createElement("div");
-    recipeHeader.classList.add("recipe-heading", "row");
-
-    const recipeTitle = document.createElement("h2");
-    recipeTitle.innerHTML = recipe.name;
-    recipeTitle.classList.add("recipe-name", "col-8", "font-weight-bold");
-
-    const recipeTimeIcon = document.createElement("img");
-    recipeTimeIcon.setAttribute("src", "/assets/clock.png");
-    recipeTimeIcon.classList.add("ms-2");
-    const recipeTime = document.createElement("p");
-    recipeTime.innerHTML = recipe.time + "min   ";
-    recipeTime.classList.add(
-      "recipe-time",
-      "col-4",
-      "d-flex",
-      "justify-content-end",
-      "font-weight-bold"
-    );
-
-    //recipe info contains ingredients and instructions
-    const recipeInfo = document.createElement("div");
-    recipeInfo.classList.add("recipe-info", "row");
-
-    const recipeIngredients = document.createElement("div");
-    recipeIngredients.classList.add(
-      "ingredients-container",
-      "col-6",
-      "font-weight-bold"
-    );
-
-    //create ingredient List
-    recipe.ingredients.forEach(function (ingredients) {
-      const ingredient = document.createElement("p");
-      ingredient.classList.add("ingredient");
-      let text = ingredients.ingredient;
-      //checks if ingedient has quanitiy or units defined and displays accordingly
-      if (ingredients.quantity !== undefined) {
-        text += ": " + ingredients.quantity;
-      }
-      if (ingredients.unit !== undefined) {
-        text += " " + ingredients.unit;
-      }
-      ingredient.innerHTML = text;
-
-      recipeInfo.appendChild(recipeIngredients);
-      recipeIngredients.appendChild(ingredient);
+  function generateRecipes(newRecipesList) {
+    //renders recipe cards
+    allRecipes = newRecipesList.map((recipe) => {
+      //creates recipe card
+      const recipeCard = document.createElement("article");
+      recipeCard.classList.add(
+        "recipe-card",
+        "col-xs-12",
+        "col-sm-6",
+        "col-md-4"
+      );
+  
+      const recipeInner = document.createElement("div");
+      recipeInner.classList.add("inner", "card-body");
+  
+      //recipe header contains title and prep time
+      const recipeHeader = document.createElement("div");
+      recipeHeader.classList.add("recipe-heading", "row");
+  
+      const recipeTitle = document.createElement("h2");
+      recipeTitle.innerHTML = recipe.name;
+      recipeTitle.classList.add("recipe-name", "col-8", "font-weight-bold");
+  
+      const recipeTimeIcon = document.createElement("img");
+      recipeTimeIcon.setAttribute("src", "/assets/clock.png");
+      recipeTimeIcon.classList.add("ms-2");
+      const recipeTime = document.createElement("p");
+      recipeTime.innerHTML = recipe.time + "min   ";
+      recipeTime.classList.add(
+        "recipe-time",
+        "col-4",
+        "d-flex",
+        "justify-content-end",
+        "font-weight-bold"
+      );
+  
+      //recipe info contains ingredients and instructions
+      const recipeInfo = document.createElement("div");
+      recipeInfo.classList.add("recipe-info", "row");
+  
+      const recipeIngredients = document.createElement("div");
+      recipeIngredients.classList.add(
+        "ingredients-container",
+        "col-6",
+        "font-weight-bold"
+      );
+  
+      //create ingredient List
+      recipe.ingredients.forEach(function (ingredients) {
+        const ingredient = document.createElement("p");
+        ingredient.classList.add("ingredient");
+        let text = ingredients.ingredient;
+        //checks if ingedient has quanitiy or units defined and displays accordingly
+        if (ingredients.quantity !== undefined) {
+          text += ": " + ingredients.quantity;
+        }
+        if (ingredients.unit !== undefined) {
+          text += " " + ingredients.unit;
+        }
+        ingredient.innerHTML = text;
+  
+        recipeInfo.appendChild(recipeIngredients);
+        recipeIngredients.appendChild(ingredient);
+      });
+  
+      const recipeInstruction = document.createElement("p");
+      recipeInstruction.classList.add("recipe-description", "col-6");
+      recipeInstruction.innerHTML = truncate(recipe.description, 100);
+  
+      //appends title and prep time to heading
+      recipeHeader.appendChild(recipeTitle);
+      recipeHeader.appendChild(recipeTime);
+      recipeTime.appendChild(recipeTimeIcon);
+  
+      //appends instructions to recipe info
+      recipeInfo.appendChild(recipeInstruction);
+  
+      //appends heading and info to recipe card
+      recipeInner.appendChild(recipeHeader);
+      recipeInner.appendChild(recipeInfo);
+  
+      //appends recipe card to container
+      recipeCard.appendChild(recipeInner);
+      recipeContainer.appendChild(recipeCard);
+  
+      return {
+        name: recipe.name,
+        description: recipe.description,
+        element: recipeCard,
+        utensils: recipe.ustensils,
+        appliance: recipe.appliance,
+      };
     });
 
-    const recipeInstruction = document.createElement("p");
-    recipeInstruction.classList.add("recipe-description", "col-6");
-    recipeInstruction.innerHTML = truncate(recipe.description, 100);
-
-    //appends title and prep time to heading
-    recipeHeader.appendChild(recipeTitle);
-    recipeHeader.appendChild(recipeTime);
-    recipeTime.appendChild(recipeTimeIcon);
-
-    //appends instructions to recipe info
-    recipeInfo.appendChild(recipeInstruction);
-
-    //appends heading and info to recipe card
-    recipeInner.appendChild(recipeHeader);
-    recipeInner.appendChild(recipeInfo);
-
-    //appends recipe card to container
-    recipeCard.appendChild(recipeInner);
-    recipeContainer.appendChild(recipeCard);
-
-    return {
-      name: recipe.name,
-      description: recipe.description,
-      element: recipeCard,
-      utensils: recipe.ustensils,
-      appliance: recipe.appliance,
-    };
-  });
+  }
 }
 
-let filteredRecipes = [];
 // Criteria Filters
 let ingredientsFilter = [];
 let deviceFilter = [];
@@ -1981,16 +1992,17 @@ function generateList(list, type, dropdown, array) {
 
         console.log(`Type: ${type}`, array);
       }
-      
-      // Filter & Re-render the recipe cards
+
+      //clear recipe array to not repeat recipes
       filteredRecipes.length = 0;
+      // Filter & Re-render the recipe cards
       filterAll();
+
       createRecipeCards();
       console.log(filteredRecipes);
     });
   });
 }
-
 
 //filters recipes by criteria
 function filterAll() {
@@ -2005,14 +2017,12 @@ function filterByIngredient() {
     // Then, loop over the whole recipes, and find any matches in the ingredients
     recipes.map((recipe) => {
       recipe.ingredients.map((ingredient) => {
-        
         if (ingredient.ingredient.toLowerCase() == filter) {
           filteredRecipes.push(recipe);
         }
       });
     });
   });
-  
 }
 function filterByDevice() {
   // Loop over each filter inside the array (NOTE: Not the best performance solution - There are better algorithms)
@@ -2023,15 +2033,12 @@ function filterByDevice() {
         filteredRecipes.push(recipe);
       }
     });
-
   });
 }
 function filterByUtensil() {
   utensilsFilter.map((filter) => {
-
     recipes.map((recipe) => {
       recipe.ustensils.map((utensil) => {
-
         if (utensil == filter) {
           filteredRecipes.push(recipe);
         }
