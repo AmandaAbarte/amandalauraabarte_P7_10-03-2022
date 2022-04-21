@@ -1789,7 +1789,6 @@ function init() {
   createFilterDropdowns();
 }
 
-
 // Create recipe cards and fill with info from recipes array
 const recipeContainer = document.querySelector(".recipes-container");
 function createRecipeCards() {
@@ -1797,11 +1796,12 @@ function createRecipeCards() {
   recipeContainer.innerHTML = "";
 
   if (filteredRecipes.length == 0) {
-    // let newRecipesList = recipes;
     generateRecipes(recipes);
+    // let newRecipesList = recipes;
   } else {
     // let newRecipesList = filteredRecipes;
-    generateRecipes(uniq(filteredRecipes));
+    filterByIngredient();
+    generateRecipes(recipes);
   }
 
   function generateRecipes(newRecipesList) {
@@ -1988,7 +1988,22 @@ function generateList(list, type, dropdown, array) {
 
           console.log(`Type: ${type}`, array);
 
-          console.log(filteredRecipes);
+          //loop over filters
+          ingredientsFilter.map((filter) => {
+            // Then, loop over the filtered recipes, and find any matches in the ingredients
+            filteredRecipes.map((recipe) => {
+              recipe.ingredients.map((ingredient) => {
+                if (ingredient.ingredient.toLowerCase() == filter) {
+                  const index2 = filteredRecipes.indexOf(filter);
+
+                  filteredRecipes.splice(index2);
+                }
+              });
+            });
+            // console.log(filter);
+          });
+          // console.log(filteredRecipes);
+          createRecipeCards();
         });
 
         // Disable the clicked dropdown-item
@@ -2003,6 +2018,8 @@ function generateList(list, type, dropdown, array) {
       filterAll();
 
       createRecipeCards();
+
+      console.log(recipes);
       console.log(filteredRecipes);
     });
   });
@@ -2016,30 +2033,57 @@ function filterAll() {
 }
 
 function filterByIngredient() {
-  // Loop over each filter inside the array (NOTE: Not the best performance solution - There are better algorithms)
-  ingredientsFilter.map((filter) => {
-    // Then, loop over the whole recipes, and find any matches in the ingredients
-    recipes.map((recipe) => {
-      recipe.ingredients.map((ingredient) => {
-        if (ingredient.ingredient.toLowerCase() == filter) {
-          filteredRecipes.push(recipe);
-        }
-      });
+  // // Loop over each filter inside the array (NOTE: Not the best performance solution - There are better algorithms)
+  // ingredientsFilter.map((filter) => {
+  //   // Then, loop over the whole recipes, and find any matches in the ingredients
+  //   recipes.map((recipe) => {
+  //     recipe.ingredients.map((ingredient) => {
+  //       if (ingredient.ingredient.toLowerCase() == filter) {
+  //         filteredRecipes.push(recipe);
+  //       }
+  //     });
+  //   });
+  // });
+
+  recipes.filter((recipe) => {
+    recipe.ingredients.forEach((ing) => {
+      if (ingredientsFilter.includes(ing.ingredient.toLowerCase())) {
+        return true;
+      }
+      return false;
     });
   });
+  createRecipeCards();
 }
 
 function filterByDevice() {
-  // Loop over each filter inside the array (NOTE: Not the best performance solution - There are better algorithms)
-  deviceFilter.map((filter) => {
-    // Then, loop over the whole recipes, and find any matches in the appliances
-    recipes.map((recipe) => {
-      if (recipe.appliance.toLowerCase() == filter) {
-        filteredRecipes.push(recipe);
-      }
-    });
-  });
+  // // Loop over each filter inside the array (NOTE: Not the best performance solution - There are better algorithms)
+  // deviceFilter.map((filter) => {
+  //   // Then, loop over the whole recipes, and find any matches in the appliances
+  //   recipes.map((recipe) => {
+  //     if (recipe.appliance.toLowerCase() == filter) {
+  //       filteredRecipes.push(recipe);
+  //     }
+  //   });
+  // });
+  // recipes.filter((recipe) => {
+  //   console.log(recipe.appliance);
+
+  //   if (recipe.appliance.includes(deviceFilter)) {
+  //     return true;
+  //   }
+  //   return false;
+  // });
+
+  function something(array, query) {
+    return array.filter(el => el.indexOf(query) !==-1)
+  }
+
+  console.log(something(recipes.appliance, "blend"));
+
+
 }
+
 function filterByUtensil() {
   utensilsFilter.map((filter) => {
     recipes.map((recipe) => {
