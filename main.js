@@ -2000,22 +2000,30 @@ function filterAll() {
 }
 
 function filterByIngredient() {
-  // Loop over each filter inside the array (NOTE: Not the best performance solution - There are better algorithms)
-  ingredientsFilter.map((filter) => {
-    // Then, loop over the whole recipes, and find any matches in the ingredients
-    recipes.map((recipe) => {
-      recipe.ingredients.map((ingredient) => {
-        
-        if (ingredient.ingredient.toLowerCase() == filter) {
-          filteredRecipes.push(recipe);
-        }
-      });
-    });
+  // Filter items by ingredients
+  // console.log("sonu recipes", recipes);
+  // console.log("sonu ingredientsFilter", ingredientsFilter);
+
+  const filteredRecipesByIngredients = recipes.filter((recipe) => {
+    // extract array of ingredients from recipe.ingredients
+    const recipeItems = [];
+    recipe.ingredients.forEach((item) => {
+      recipeItems.push(item.ingredient.toLowerCase());
+    }) 
+
+    // check if recipeItems contain any of the items in ingredientsFilter
+    const isFounded = recipeItems.some( ai => ingredientsFilter.includes(ai));
+    return isFounded;
+
   });
+
+  console.log("sonu filteredRecipes", filteredRecipesByIngredients);
   
 }
+
 function filterByDevice() {
   // Loop over each filter inside the array (NOTE: Not the best performance solution - There are better algorithms)
+
   deviceFilter.map((filter) => {
     // Then, loop over the whole recipes, and find any matches in the appliances
     recipes.map((recipe) => {
