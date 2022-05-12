@@ -2012,7 +2012,7 @@ function filterByIngredient() {
     }) 
 
     // check if recipeItems contain any of the items in ingredientsFilter
-    const isFounded = recipeItems.some( ai => ingredientsFilter.includes(ai));
+    const isFounded = ingredientsFilter.every( ai => recipeItems.includes(ai));
     return isFounded;
 
   });
