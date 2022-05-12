@@ -1778,6 +1778,7 @@ const filterContainer = document.querySelector(".filter");
 const filterTagsContainer = document.querySelector(".filter-tag");
 
 let allRecipes = [];
+let filteredRecipes = [];
 
 const getValue = (value) =>
   typeof value === "string" ? value.toUpperCase() : value;
@@ -1787,13 +1788,13 @@ function init() {
   createRecipeCards();
   createFilterDropdowns();
 }
-
 // Create recipe cards and fill with info from recipes array
 const recipeContainer = document.querySelector(".recipes-container");
 function createRecipeCards(newRecipesList = recipes) {
+  
   //clears exisitng recipes to rerender cards
   recipeContainer.innerHTML = "";
-
+  
   //renders recipe cards
   allRecipes = newRecipesList.map((recipe) => {
     //creates recipe card
@@ -1888,7 +1889,7 @@ function createRecipeCards(newRecipesList = recipes) {
   });
 }
 
-let filteredRecipes = [];
+
 // Criteria Filters
 let ingredientsFilter = [];
 let deviceFilter = [];
@@ -1974,6 +1975,9 @@ function generateList(list, type, dropdown, array) {
           array.splice(index, 1);
           //enable drop-down item
           item.classList.remove("disabled");
+
+
+          filterAll();
         });
 
         // Disable the clicked dropdown-item
@@ -1985,7 +1989,8 @@ function generateList(list, type, dropdown, array) {
       // Filter & Re-render the recipe cards
       filteredRecipes.length = 0;
       filterAll();
-      createRecipeCards();
+      
+      // createRecipeCards();
       console.log(filteredRecipes);
     });
   });
@@ -1997,6 +2002,7 @@ function filterAll() {
   filterByIngredient();
   filterByDevice();
   filterByUtensil();
+  
 }
 
 function filterByIngredient() {
@@ -2011,28 +2017,46 @@ function filterByIngredient() {
       recipeItems.push(item.ingredient.toLowerCase());
     }) 
 
-    // check if recipeItems contain any of the items in ingredientsFilter
+    // check if recipeItems contain all of the items in ingredientsFilter
     const isFounded = ingredientsFilter.every( ai => recipeItems.includes(ai));
     return isFounded;
 
   });
 
   console.log("sonu filteredRecipes", filteredRecipesByIngredients);
-  
+
+  //if filtered array is not empty - creates cards with filtered array
+  if(filteredRecipesByIngredients.length > 0){
+    createRecipeCards(newRecipesList = filteredRecipesByIngredients)
+    
+  } else {
+    createRecipeCards(newRecipesList = recipes)
+  }
 }
 
 function filterByDevice() {
   // Loop over each filter inside the array (NOTE: Not the best performance solution - There are better algorithms)
 
-  deviceFilter.map((filter) => {
-    // Then, loop over the whole recipes, and find any matches in the appliances
-    recipes.map((recipe) => {
-      if (recipe.appliance.toLowerCase() == filter) {
-        filteredRecipes.push(recipe);
-      }
-    });
+  // deviceFilter.map((filter) => {
+  //   // Then, loop over the whole recipes, and find any matches in the appliances
+  //   recipes.map((recipe) => {
+  //     if (recipe.appliance.toLowerCase() == filter) {
+  //       filteredRecipes.push(recipe);
+  //     }
+  //   });
+
+  // });
+  const filteredRecipesByDevice = recipes.filter((recipe) => {
+    
+
+    // check if recipeItems contain all of the items in ingredientsFilter
+    const isFounded = deviceFilter.every( ai => recipe.appliance.includes(ai));
+    return isFounded;
 
   });
+
+  // console.log(filteredRecipesByDevice);
+
 }
 function filterByUtensil() {
   utensilsFilter.map((filter) => {
