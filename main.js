@@ -2007,8 +2007,6 @@ function filterAll() {
 
 function filterByIngredient() {
   // Filter items by ingredients
-  // console.log("sonu recipes", recipes);
-  // console.log("sonu ingredientsFilter", ingredientsFilter);
 
   const filteredRecipesByIngredients = recipes.filter((recipe) => {
     // extract array of ingredients from recipe.ingredients
@@ -2035,21 +2033,9 @@ function filterByIngredient() {
 }
 
 function filterByDevice() {
-  // Loop over each filter inside the array (NOTE: Not the best performance solution - There are better algorithms)
-
-  // deviceFilter.map((filter) => {
-  //   // Then, loop over the whole recipes, and find any matches in the appliances
-  //   recipes.map((recipe) => {
-  //     if (recipe.appliance.toLowerCase() == filter) {
-  //       filteredRecipes.push(recipe);
-  //     }
-  //   });
-
-  // });
+  
   const filteredRecipesByDevice = recipes.filter((recipe) => {
-    
-
-    // check if recipeItems contain all of the items in ingredientsFilter
+    // check if recipeItems contain all of the items in deviceFilter
     const isFounded = deviceFilter.every( ai => recipe.appliance.includes(ai));
     return isFounded;
 
@@ -2066,17 +2052,23 @@ function filterByDevice() {
 }
 
 function filterByUtensil() {
-  utensilsFilter.map((filter) => {
+  const filteredRecipesByUtensil = recipes.filter((recipe) => {
+   
+    // check if recipeItems contain all of the items in utensilsFilter
+    const isFounded = utensilsFilter.every( ai => recipe.ustensils.includes(ai));
+    return isFounded;
 
-    recipes.map((recipe) => {
-      recipe.ustensils.map((utensil) => {
-
-        if (utensil == filter) {
-          filteredRecipes.push(recipe);
-        }
-      });
-    });
   });
+
+  console.log("utensil filteredRecipes", filteredRecipesByUtensil);
+
+  //if filtered array is not empty & there are filters - creates cards with filtered array
+  if(filteredRecipesByUtensil.length >= 0 && utensilsFilter.length > 0){
+    createRecipeCards(newRecipesList = filteredRecipesByUtensil)
+    
+  } else {
+    createRecipeCards(newRecipesList = recipes)
+  }
 }
 
 // Listens for input, check title or description contains input and hides everything not including input
