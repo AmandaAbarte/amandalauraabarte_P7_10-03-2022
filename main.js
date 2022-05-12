@@ -2023,10 +2023,10 @@ function filterByIngredient() {
 
   });
 
-  console.log("sonu filteredRecipes", filteredRecipesByIngredients);
+  console.log("ing filteredRecipes", filteredRecipesByIngredients);
 
-  //if filtered array is not empty - creates cards with filtered array
-  if(filteredRecipesByIngredients.length > 0){
+  //if filtered array is not empty & there are filters - creates cards with filtered array
+  if(filteredRecipesByIngredients.length >= 0 && ingredientsFilter.length > 0){
     createRecipeCards(newRecipesList = filteredRecipesByIngredients)
     
   } else {
@@ -2054,10 +2054,17 @@ function filterByDevice() {
     return isFounded;
 
   });
-
-  // console.log(filteredRecipesByDevice);
-
+  //if filtered array is not empty & there are filters - creates cards with filtered array
+  if(filteredRecipesByDevice.length >= 0 && deviceFilter.length > 0){
+    createRecipeCards(newRecipesList = filteredRecipesByDevice)
+    
+  } else {
+    createRecipeCards(newRecipesList = recipes)
+  }
+  
+  console.log("dev filteredRecipes", filteredRecipesByDevice);
 }
+
 function filterByUtensil() {
   utensilsFilter.map((filter) => {
 
