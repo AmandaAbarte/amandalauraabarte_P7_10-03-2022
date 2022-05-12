@@ -2003,6 +2003,13 @@ function filterAll() {
   filterByDevice();
   filterByUtensil();
   
+  //renders from filtered array if there are tags and items in filtered array, else renders all
+  if(filteredRecipes.length > 0 && ingredientsFilter.length > 0 || deviceFilter.length > 0 || utensilsFilter.length > 0){
+    createRecipeCards(newRecipesList = uniq(filteredRecipes))
+  } else {
+    createRecipeCards()
+  }
+  console.log("filteredarray", uniq(filteredRecipes));
 }
 
 function filterByIngredient() {
@@ -2022,14 +2029,14 @@ function filterByIngredient() {
   });
 
   console.log("ing filteredRecipes", filteredRecipesByIngredients);
+  //if there are tags, recipes are pushed to filtered array
+  if(ingredientsFilter.length > 0) {
 
-  //if filtered array is not empty & there are filters - creates cards with filtered array
-  if(filteredRecipesByIngredients.length >= 0 && ingredientsFilter.length > 0){
-    createRecipeCards(newRecipesList = filteredRecipesByIngredients)
-    
-  } else {
-    createRecipeCards(newRecipesList = recipes)
+    filteredRecipesByIngredients.forEach((recipe) => {
+      filteredRecipes.push(recipe)
+    });
   }
+  
 }
 
 function filterByDevice() {
@@ -2040,15 +2047,16 @@ function filterByDevice() {
     return isFounded;
 
   });
-  //if filtered array is not empty & there are filters - creates cards with filtered array
-  if(filteredRecipesByDevice.length >= 0 && deviceFilter.length > 0){
-    createRecipeCards(newRecipesList = filteredRecipesByDevice)
-    
-  } else {
-    createRecipeCards(newRecipesList = recipes)
-  }
+  
   
   console.log("dev filteredRecipes", filteredRecipesByDevice);
+  //if there are tags, recipes are pushed to filtered array
+  if(deviceFilter.length > 0){
+
+    filteredRecipesByDevice.forEach((recipe) => {
+      filteredRecipes.push(recipe)
+    });
+  }
 }
 
 function filterByUtensil() {
@@ -2061,14 +2069,14 @@ function filterByUtensil() {
   });
 
   console.log("utensil filteredRecipes", filteredRecipesByUtensil);
+  //if there are tags, recipes are pushed to filtered array
+  if(utensilsFilter.length > 0){
 
-  //if filtered array is not empty & there are filters - creates cards with filtered array
-  if(filteredRecipesByUtensil.length >= 0 && utensilsFilter.length > 0){
-    createRecipeCards(newRecipesList = filteredRecipesByUtensil)
-    
-  } else {
-    createRecipeCards(newRecipesList = recipes)
+    filteredRecipesByUtensil.forEach((recipe) => {
+      filteredRecipes.push(recipe)
+    });
   }
+  
 }
 
 // Listens for input, check title or description contains input and hides everything not including input
