@@ -1791,10 +1791,9 @@ function init() {
 // Create recipe cards and fill with info from recipes array
 const recipeContainer = document.querySelector(".recipes-container");
 function createRecipeCards(newRecipesList = recipes) {
-  
   //clears exisitng recipes to rerender cards
   recipeContainer.innerHTML = "";
-  
+
   //renders recipe cards
   allRecipes = newRecipesList.map((recipe) => {
     //creates recipe card
@@ -1889,7 +1888,6 @@ function createRecipeCards(newRecipesList = recipes) {
   });
 }
 
-
 // Criteria Filters
 let ingredientsFilter = [];
 let deviceFilter = [];
@@ -1935,7 +1933,6 @@ function createFilterDropdowns() {
   generateList(devicesArray, "device", deviceDropdown, deviceFilter);
   generateList(utensilsArray, "utensil", utensilsDropdown, utensilsFilter);
 }
-
 // Generates list of items for each filter dropdown
 function generateList(list, type, dropdown, array) {
   list.forEach((criteria) => {
@@ -1976,7 +1973,6 @@ function generateList(list, type, dropdown, array) {
           //enable drop-down item
           item.classList.remove("disabled");
 
-
           filterAll();
         });
 
@@ -1985,31 +1981,51 @@ function generateList(list, type, dropdown, array) {
 
         console.log(`Type: ${type}`, array);
       }
-      
+
       // Filter & Re-render the recipe cards
       filteredRecipes.length = 0;
       filterAll();
-      
+
       // createRecipeCards();
       console.log(filteredRecipes);
     });
   });
 }
 
+const errorMessage = document.querySelector(".error");
 
 //filters recipes by criteria
 function filterAll() {
   filterByIngredient();
   filterByDevice();
   filterByUtensil();
-  
+
   //renders from filtered array if there are tags and items in filtered array, else renders all
-  if(filteredRecipes.length > 0 && ingredientsFilter.length > 0 || deviceFilter.length > 0 || utensilsFilter.length > 0){
-    createRecipeCards(newRecipesList = uniq(filteredRecipes))
+  if (
+    (filteredRecipes.length >= 0 && ingredientsFilter.length > 0) ||
+    deviceFilter.length > 0 ||
+    utensilsFilter.length > 0
+  ) {
+    createRecipeCards((newRecipesList = uniq(filteredRecipes)));
   } else {
-    createRecipeCards()
+    createRecipeCards();
   }
   console.log("filteredarray", uniq(filteredRecipes));
+
+  error();
+}
+
+function error() {
+  //shows and hides error message
+  if (
+    (filteredRecipes.length === 0 && ingredientsFilter.length > 0) ||
+    deviceFilter.length > 0 ||
+    utensilsFilter.length > 0
+  ) {
+    errorMessage.classList.remove("hide");
+  } else {
+    errorMessage.classList.add("hide");
+  }
 }
 
 function filterByIngredient() {
@@ -2020,76 +2036,80 @@ function filterByIngredient() {
     const recipeItems = [];
     recipe.ingredients.forEach((item) => {
       recipeItems.push(item.ingredient.toLowerCase());
-    }) 
+    });
 
     // check if recipeItems contain all of the items in ingredientsFilter
-    const isFounded = ingredientsFilter.every( ai => recipeItems.includes(ai));
+    const isFounded = ingredientsFilter.every((ai) => recipeItems.includes(ai));
     return isFounded;
-
   });
 
   console.log("ing filteredRecipes", filteredRecipesByIngredients);
   //if there are tags, recipes are pushed to filtered array
-  if(ingredientsFilter.length > 0) {
-
+  if (ingredientsFilter.length > 0) {
     filteredRecipesByIngredients.forEach((recipe) => {
-      filteredRecipes.push(recipe)
+      filteredRecipes.push(recipe);
     });
   }
-  
 }
 
 function filterByDevice() {
-  
   const filteredRecipesByDevice = recipes.filter((recipe) => {
     // check if recipeItems contain all of the items in deviceFilter
-    const isFounded = deviceFilter.every( ai => recipe.appliance.includes(ai));
+    const isFounded = deviceFilter.every((ai) => recipe.appliance.includes(ai));
     return isFounded;
-
   });
-  
-  
+
   console.log("dev filteredRecipes", filteredRecipesByDevice);
   //if there are tags, recipes are pushed to filtered array
-  if(deviceFilter.length > 0){
-
+  if (deviceFilter.length > 0) {
     filteredRecipesByDevice.forEach((recipe) => {
-      filteredRecipes.push(recipe)
+      filteredRecipes.push(recipe);
     });
   }
 }
 
 function filterByUtensil() {
   const filteredRecipesByUtensil = recipes.filter((recipe) => {
-   
     // check if recipeItems contain all of the items in utensilsFilter
-    const isFounded = utensilsFilter.every( ai => recipe.ustensils.includes(ai));
+    const isFounded = utensilsFilter.every((ai) =>
+      recipe.ustensils.includes(ai)
+    );
     return isFounded;
-
   });
 
   console.log("utensil filteredRecipes", filteredRecipesByUtensil);
   //if there are tags, recipes are pushed to filtered array
-  if(utensilsFilter.length > 0){
-
+  if (utensilsFilter.length > 0) {
     filteredRecipesByUtensil.forEach((recipe) => {
-      filteredRecipes.push(recipe)
+      filteredRecipes.push(recipe);
     });
   }
-  
 }
 
 // Listens for input, check title or description contains input and hides everything not including input
 const searchInput = document.querySelector("[data-search]");
 searchInput.addEventListener("input", function (e) {
   const value = e.target.value.toLowerCase();
-
+  let nonVisible = [];
   allRecipes.forEach((recipe) => {
     const isVisible =
       recipe.name.toLowerCase().includes(value) ||
       recipe.description.toLowerCase().includes(value);
     recipe.element.classList.toggle("d-none", !isVisible);
+
+    //when no recipes visible, pushed to array
+    if (!isVisible) {
+      test.push("false");
+    }
+    console.log(isVisible);
   });
+
+  //if no recipes are visible (ie. there is items in nonvisible array) then error message is shown
+  if (nonVisible.length === 50) {
+    errorMessage.classList.remove("hide");
+  } else {
+    errorMessage.classList.add("hide");
+  }
 });
 
 /******************************

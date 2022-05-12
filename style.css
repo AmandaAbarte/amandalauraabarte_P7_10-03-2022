@@ -152,6 +152,21 @@ header .filter .show-filter img {
   line-height: 14px;
 }
 
+.error {
+  margin-top: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 47px;
+  color: #d04f4f;
+}
+
 .hide {
   display: none;
 }

@@ -112,6 +112,8 @@ header {
       }
     }
   }
+
+  
 }
 
 .recipes-container {
@@ -158,7 +160,16 @@ header {
     }
   }
 }
-
+.error {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 47px;
+  color: #d04f4f;
+}
 .hide {
   display: none;
 }
