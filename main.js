@@ -1992,8 +1992,6 @@ function generateList(list, type, dropdown, array) {
   });
 }
 
-const errorMessage = document.querySelector(".error");
-
 //filters recipes by criteria
 function filterAll() {
   filterByIngredient();
@@ -2015,12 +2013,13 @@ function filterAll() {
   error();
 }
 
+const errorMessage = document.querySelector(".error");
 function error() {
   //shows and hides error message
   if (
-    (filteredRecipes.length === 0 && ingredientsFilter.length > 0) ||
+    (filteredRecipes.length === 0) && (ingredientsFilter.length > 0 ||
     deviceFilter.length > 0 ||
-    utensilsFilter.length > 0
+    utensilsFilter.length > 0)
   ) {
     errorMessage.classList.remove("hide");
   } else {
@@ -2099,9 +2098,8 @@ searchInput.addEventListener("input", function (e) {
 
     //when no recipes visible, pushed to array
     if (!isVisible) {
-      test.push("false");
+      nonVisible.push("false");
     }
-    console.log(isVisible);
   });
 
   //if no recipes are visible (ie. there is items in nonvisible array) then error message is shown
